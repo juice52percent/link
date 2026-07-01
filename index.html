@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>果汁 | Links</title>
+  <meta name="description" content="果汁のプロフィールと各種リンクをまとめたページです。">
+  <meta property="og:title" content="果汁 | Links">
+  <meta property="og:description" content="果汁のプロフィールと各種リンクをまとめたページです。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/hero-art.png">
+  <meta name="theme-color" content="#f7b8c7">
+  <style>
+    :root {
+      --bg: #fff8fb;
+      --ink: #382f35;
+      --muted: #7c6b75;
+      --line: rgba(58, 47, 53, 0.14);
+      --panel: rgba(255, 255, 255, 0.58);
+      --pink: #f6aebb;
+      --pink-dark: #dd7284;
+      --blue: #a6dfec;
+      --blue-dark: #4f9fb0;
+      --shadow: 0 18px 48px rgba(153, 89, 111, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100%;
+      margin: 0;
+      font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(166, 223, 236, 0.5), transparent 28rem),
+        radial-gradient(circle at 88% 18%, rgba(246, 174, 187, 0.56), transparent 24rem),
+        linear-gradient(180deg, #fffafd 0%, #f7fbfc 52%, #fff6f8 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .page {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 0 44px;
+      overflow: hidden;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      padding: 28px 18px 24px;
+    }
+
+    .hero-art {
+      position: absolute;
+      inset: 0 0 auto;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 250, 253, 0.02) 10%, rgba(255, 250, 253, 0.35) 54%, rgba(255, 250, 253, 0.94) 84%);
+      pointer-events: none;
+    }
+
+    .balloon {
+      position: absolute;
+      z-index: 5;
+      pointer-events: none;
+      filter: drop-shadow(0 14px 18px rgba(72, 82, 96, 0.12));
+      transform-origin: 50% 88%;
+      will-change: transform;
+    }
+
+    .balloon-blue {
+      width: clamp(92px, 14vw, 150px);
+      right: max(0px, calc(50% - 500px));
+      top: clamp(280px, 48vh, 500px);
+      animation: float-blue 7.8s ease-in-out infinite;
+    }
+
+    .balloon-pink {
+      width: clamp(86px, 13vw, 142px);
+      left: max(0px, calc(50% - 520px));
+      top: clamp(300px, 52vh, 520px);
+      animation: float-pink 8.6s ease-in-out -2.4s infinite;
+    }
+
+    .intro {
+      position: relative;
+      z-index: 3;
+      width: min(100%, 680px);
+      margin: 0 auto;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 14px;
+      color: var(--pink-dark);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .lead {
+      max-width: 34rem;
+      margin: 4px auto 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.9;
+    }
+
+    .links {
+      position: relative;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .link-card {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 8px 22px rgba(153, 89, 111, 0.08);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .link-card:hover,
+    .link-card:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(221, 114, 132, 0.44);
+      box-shadow: 0 14px 28px rgba(153, 89, 111, 0.14);
+      outline: none;
+    }
+
+    .link-main {
+      min-width: 0;
+    }
+
+    .link-title {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .link-note {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .link-mark {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--blue));
+      color: white;
+      font-weight: 900;
+      box-shadow: 0 8px 16px rgba(79, 159, 176, 0.18);
+    }
+
+    .notice {
+      position: relative;
+      z-index: 4;
+      margin: 18px auto 0;
+      padding: 14px 16px;
+      max-width: 680px;
+      border: 1px solid rgba(79, 159, 176, 0.22);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.58);
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    footer {
+      position: relative;
+      z-index: 4;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    @keyframes float-blue {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(-10deg);
+      }
+
+      24% {
+        transform: translate3d(10px, -18px, 0) rotate(-6deg);
+      }
+
+      52% {
+        transform: translate3d(-5px, -28px, 0) rotate(-13deg);
+      }
+
+      76% {
+        transform: translate3d(7px, -10px, 0) rotate(-8deg);
+      }
+    }
+
+    @keyframes float-pink {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(8deg);
+      }
+
+      28% {
+        transform: translate3d(-9px, -14px, 0) rotate(13deg);
+      }
+
+      58% {
+        transform: translate3d(6px, -26px, 0) rotate(5deg);
+      }
+
+      82% {
+        transform: translate3d(-4px, -8px, 0) rotate(11deg);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 0 0 32px;
+      }
+
+      .hero {
+        display: block;
+        min-height: auto;
+        padding: 0 12px 24px;
+      }
+
+      .hero-art {
+        position: relative;
+        width: calc(100% + 24px);
+        height: min(72svh, 520px);
+        margin: 0 -12px;
+        object-position: center top;
+      }
+
+      .intro {
+        margin-top: 16px;
+        padding: 20px 16px;
+        border-radius: 20px;
+      }
+
+      .links {
+        grid-template-columns: 1fr;
+      }
+
+      .link-card {
+        min-height: 76px;
+      }
+
+      .link-main {
+        display: grid;
+        gap: 6px;
+        justify-items: start;
+      }
+
+      .link-title {
+        line-height: 1.2;
+      }
+
+      .link-note {
+        width: 100%;
+        margin-top: 0;
+        line-height: 1.35;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .balloon-blue {
+        width: 82px;
+        right: 12px;
+        top: 420px;
+      }
+
+      .balloon-pink {
+        width: 82px;
+        left: 12px;
+        top: 456px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-label="Kaju links">
+      <img class="hero-art" src="assets/hero-art.png" alt="水色とピンクの風船を背景にしたイラスト">
+      <img class="balloon balloon-blue" src="assets/blue-balloon.png" alt="">
+      <img class="balloon balloon-pink" src="assets/pink-balloon.png" alt="">
+
+      <div class="intro">
+        <span class="eyebrow">Kaju links</span>
+        <p class="lead">
+          MHA中心にイラストを描いています。各SNS、作品置き場、メッセージはこちらからどうぞ。
+        </p>
+
+        <nav class="links" aria-label="リンク一覧">
+          <a class="link-card" href="https://wavebox.me/wave/m1gj5o588rmjhx06/" target="_blank" rel="noreferrer">
+            <span class="link-main">
+              <span class="link-title">Wavebox</span>
+              <span class="link-note">ご感想いただけると励みになります。</span>
+            </span>
+            <span class="link-mark" aria-hidden="true">W</span>
+          </a>
+
+          <a class="link-card" href="https://x.com/juice52percent" target="_blank" rel="noreferrer">
+            <span class="link-main">
+              <span class="link-title">X</span>
+              <span class="link-note">メインです</span>
+            </span>
+            <span class="link-mark" aria-hidden="true">X</span>
+          </a>
+
+          <a class="link-card" href="https://bsky.app/profile/juice52percent.bsky.social" target="_blank" rel="noreferrer">
+            <span class="link-main">
+              <span class="link-title">Bluesky</span>
+              <span class="link-note">ぬい撮りやクリエイティブメインです</span>
+            </span>
+            <span class="link-mark" aria-hidden="true">B</span>
+          </a>
+
+          <a class="link-card" href="https://www.pixiv.net/users/116297475" target="_blank" rel="noreferrer">
+            <span class="link-main">
+              <span class="link-title">pixiv</span>
+              <span class="link-note">イラスト置き場</span>
+            </span>
+            <span class="link-mark" aria-hidden="true">P</span>
+          </a>
+
+          <a class="link-card" href="https://x.com/fruitjuice_r18" target="_blank" rel="noreferrer">
+            <span class="link-main">
+              <span class="link-title">R18 X</span>
+              <span class="link-note">進捗やネタポスト中心です</span>
+            </span>
+            <span class="link-mark" aria-hidden="true">18</span>
+          </a>
+
+          <a class="link-card" href="https://poipiku.com/11730574/" target="_blank" rel="noreferrer">
+            <span class="link-main">
+              <span class="link-title">ポイピク</span>
+              <span class="link-note">R18 / らくがき</span>
+            </span>
+            <span class="link-mark" aria-hidden="true">ぽ</span>
+          </a>
+        </nav>
+      </div>
+    </section>
+
+    <p class="notice">
+      R18表記のあるリンクは18歳以上の方向けです。閲覧は各サービスのルールに沿ってお願いします。
+    </p>
+
+    <footer>
+      © 果汁
+    </footer>
+  </main>
+</body>
+</html>
