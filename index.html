@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>果汁 | Links</title>
   <meta name="description" content="果汁のプロフィールと各種リンクをまとめたページです。">
+  <meta name="robots" content="noindex, nofollow, noimageindex, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow, noimageindex, noarchive, nosnippet">
+  <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="pinterest" content="nopin">
+  <meta name="AI-Training" content="no">
+  <meta name="ai-training" content="no">
   <meta property="og:title" content="果汁 | Links">
   <meta property="og:description" content="果汁のプロフィールと各種リンクをまとめたページです。">
   <meta property="og:type" content="website">
@@ -52,6 +58,8 @@
     img {
       display: block;
       max-width: 100%;
+      -webkit-user-drag: none;
+      user-select: none;
     }
 
     .page {
@@ -562,5 +570,18 @@
       © 果汁
     </footer>
   </main>
+  <script>
+    document.addEventListener("contextmenu", (event) => {
+      if (event.target.closest("img, .book-link, .hero")) {
+        event.preventDefault();
+      }
+    });
+
+    document.addEventListener("dragstart", (event) => {
+      if (event.target.closest("img")) {
+        event.preventDefault();
+      }
+    });
+  </script>
 </body>
 </html>
