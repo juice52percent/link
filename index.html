@@ -175,9 +175,22 @@
 
     .link-card-wide {
       grid-column: 1 / -1;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .link-card-wide .link-main {
+      display: grid;
+      justify-items: center;
+    }
+
+    .link-card-wide .link-mark {
+      position: absolute;
+      right: 16px;
     }
 
     .link-card {
+      position: relative;
       min-height: 86px;
       display: flex;
       align-items: center;
@@ -544,7 +557,7 @@
           <a class="link-card link-card-wide" href="https://skeb.jp/@juice52percent" target="_blank" rel="noreferrer">
             <span class="link-main">
               <span class="link-title">Skeb</span>
-              <span class="link-note">リクエスト</span>
+              <span class="link-note">１次創作のみ受け付けています</span>
             </span>
             <span class="link-mark" aria-hidden="true">S</span>
           </a>
