@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+  <meta name="theme-color" content="#201a2d">
+  <title>HW26 おみくじ</title>
+  <meta name="description" content="イベント限定おみくじ">
+  <style>
+    :root { color-scheme: dark; --ink: #fff8e8; --muted: #c9bfd4; --gold: #ffd77a; --panel: rgba(35, 27, 49, 0.9); }
+    * { box-sizing: border-box; }
+    html { min-height: 100%; background: #17121f; }
+    body {
+      min-height: 100svh; margin: 0;
+      padding: max(18px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
+      display: grid; place-items: center; overflow-x: hidden; color: var(--ink);
+      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", Meiryo, system-ui, sans-serif;
+      background: radial-gradient(circle at 12% 15%, rgba(184,137,255,.24), transparent 25rem), radial-gradient(circle at 88% 4%, rgba(255,154,79,.22), transparent 24rem), linear-gradient(155deg, #17121f 0%, #261b33 52%, #17121f 100%);
+    }
+    body::before { content: "✦ ･ﾟ✧ ･ﾟ✦"; position: fixed; inset: 4vh 0 auto; color: rgba(255,215,122,.16); font-size: clamp(3rem,14vw,8rem); letter-spacing: .25em; text-align: center; pointer-events: none; transform: rotate(-5deg); }
+    .page { position: relative; width: min(100%, 520px); text-align: center; }
+    .eyebrow { margin: 0 0 7px; color: var(--gold); font-size: .72rem; font-weight: 800; letter-spacing: .23em; }
+    h1 { margin: 0 0 18px; font-size: clamp(1.5rem,7vw,2.25rem); letter-spacing: .08em; text-shadow: 0 3px 18px rgba(184,137,255,.4); }
+    .result-card { position: relative; padding: 10px; overflow: hidden; border: 1px solid rgba(255,215,122,.5); border-radius: 28px; background: var(--panel); box-shadow: 0 24px 70px rgba(0,0,0,.38), inset 0 0 0 1px rgba(255,255,255,.06); opacity: 0; transform: translateY(16px) scale(.98); }
+    .result-card.is-ready { animation: reveal .75s cubic-bezier(.2,.8,.2,1) forwards; }
+    .image-frame { position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 20px; background: linear-gradient(145deg, rgba(184,137,255,.18), rgba(255,154,79,.18)), #21192d; }
+    .result-image { width: 100%; height: 100%; object-fit: cover; }
+    .result-image[hidden], .placeholder[hidden], .loading[hidden] { display: none; }
+    .placeholder { position: absolute; inset: 0; display: grid; place-content: center; gap: 12px; padding: 30px; color: var(--muted); }
+    .placeholder-mark { color: var(--gold); font-size: clamp(4rem,22vw,7rem); line-height: 1; filter: drop-shadow(0 8px 24px rgba(255,154,79,.25)); }
+    .placeholder strong { color: var(--ink); font-size: 1.05rem; }
+    .result-copy { padding: 20px 14px 18px; }
+    .label { margin: 0; color: var(--muted); font-size: .78rem; letter-spacing: .16em; }
+    .fortune { margin: 3px 0 8px; color: var(--accent,var(--gold)); font-family: YuMincho,"Yu Mincho","Hiragino Mincho ProN",serif; font-size: clamp(3rem,18vw,5.8rem); font-weight: 800; line-height: 1.05; letter-spacing: .08em; text-indent: .08em; text-shadow: 0 5px 26px color-mix(in srgb,var(--accent,var(--gold)) 35%,transparent); }
+    .message { max-width: 30rem; margin: 0 auto; font-size: .96rem; line-height: 1.85; }
+    .note { margin: 15px 0 0; color: var(--muted); font-size: .72rem; line-height: 1.6; }
+    .loading { min-height: 68svh; display: grid; place-content: center; gap: 18px; }
+    .moon { font-size: 4rem; animation: pulse .9s ease-in-out infinite alternate; }
+    .loading p { margin: 0; color: var(--muted); letter-spacing: .14em; }
+    @keyframes pulse { to { transform: translateY(-8px) rotate(6deg); filter: drop-shadow(0 10px 18px rgba(184,137,255,.55)); } }
+    @keyframes reveal { to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="loading" id="loading" role="status" aria-live="polite"><div class="moon" aria-hidden="true">☾</div><p>運勢を占っています…</p></div>
+    <section id="result" hidden aria-labelledby="fortune">
+      <p class="eyebrow">HALLOWEEN 2026</p>
+      <h1>イベントおみくじ</h1>
+      <article class="result-card" id="result-card">
+        <div class="image-frame">
+          <img class="result-image" id="result-image" alt="" hidden>
+          <div class="placeholder" id="placeholder"><span class="placeholder-mark" aria-hidden="true">✦</span><strong>イラスト準備中</strong><span>1080 × 1350px（4:5）</span></div>
+        </div>
+        <div class="result-copy"><p class="label">あなたの運勢は</p><p class="fortune" id="fortune"></p><p class="message" id="message"></p></div>
+      </article>
+      <p class="note">ページを開くたびに抽選されます。結果は端末に保存されません。</p>
+    </section>
+  </main>
+  <script>
+    // images/ に、各 image と同じファイル名でイラストを置いてください。
+    // weight の合計は100。文章は message を書き換えるだけで変更できます。
+    const fortunes = [
+      { name: "大吉", weight: 15, image: "daikichi.webp", color: "#ffd77a", message: "最高の運勢！ 思いきって行動すると、うれしい出来事に出会えそう。" },
+      { name: "吉", weight: 20, image: "kichi.webp", color: "#ffbd83", message: "穏やかな追い風が吹く日。自分のペースを大切にすると吉。" },
+      { name: "中吉", weight: 25, image: "chukichi.webp", color: "#d8b5ff", message: "小さな幸運を見つけられそう。好きなものを信じて進んで。" },
+      { name: "小吉", weight: 22, image: "shokichi.webp", color: "#b7d9ff", message: "ちょっといいことがありそう。焦らず、一歩ずつ楽しもう。" },
+      { name: "末吉", weight: 17, image: "suekichi.webp", color: "#bde6ce", message: "運気はこれから上向き。今日の出会いやひらめきを大切に。" },
+      { name: "凶", weight: 1, image: "kyo.webp", color: "#ff85ad", message: "激レア！ ここで引けたこと自体が大当たりかも。今日は慎重に楽しんで。" }
+    ];
+    function drawFortune() {
+      const total = fortunes.reduce((sum,item) => sum + item.weight, 0);
+      const bytes = new Uint32Array(1); crypto.getRandomValues(bytes);
+      let point = (bytes[0] / 2 ** 32) * total;
+      return fortunes.find((item) => { point -= item.weight; return point < 0; }) ?? fortunes.at(-1);
+    }
+    function showResult() {
+      const selected = drawFortune();
+      const result = document.getElementById("result");
+      const card = document.getElementById("result-card");
+      const image = document.getElementById("result-image");
+      const placeholder = document.getElementById("placeholder");
+      document.getElementById("fortune").textContent = selected.name;
+      document.getElementById("message").textContent = selected.message;
+      card.style.setProperty("--accent", selected.color);
+      image.src = `images/${selected.image}`; image.alt = `${selected.name}のおみくじイラスト`;
+      image.addEventListener("load", () => { image.hidden = false; placeholder.hidden = true; }, { once: true });
+      image.addEventListener("error", () => { image.hidden = true; placeholder.hidden = false; }, { once: true });
+      document.getElementById("loading").hidden = true; result.hidden = false;
+      requestAnimationFrame(() => card.classList.add("is-ready"));
+    }
+    window.setTimeout(showResult, 850);
+  </script>
+</body>
+</html>
