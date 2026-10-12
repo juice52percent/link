@@ -24,7 +24,7 @@
     h1 { margin: 0 0 18px; font-size: clamp(1.5rem,7vw,2.25rem); letter-spacing: .08em; text-shadow: 0 3px 18px rgba(184,137,255,.4); }
     .result-card { position: relative; padding: 10px; overflow: hidden; border: 1px solid rgba(255,215,122,.5); border-radius: 28px; background: var(--panel); box-shadow: 0 24px 70px rgba(0,0,0,.38), inset 0 0 0 1px rgba(255,255,255,.06); opacity: 0; transform: translateY(16px) scale(.98); }
     .result-card.is-ready { animation: reveal .75s cubic-bezier(.2,.8,.2,1) forwards; }
-    .image-frame { position: relative; aspect-ratio: 4/5; overflow: hidden; border-radius: 20px; background: linear-gradient(145deg, rgba(184,137,255,.18), rgba(255,154,79,.18)), #21192d; }
+    .image-frame { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: 20px; background: linear-gradient(145deg, rgba(184,137,255,.18), rgba(255,154,79,.18)), #21192d; }
     .result-image { width: 100%; height: 100%; object-fit: cover; }
     .result-image[hidden], .placeholder[hidden], .loading[hidden] { display: none; }
     .placeholder { position: absolute; inset: 0; display: grid; place-content: center; gap: 12px; padding: 30px; color: var(--muted); }
@@ -52,7 +52,7 @@
       <article class="result-card" id="result-card">
         <div class="image-frame">
           <img class="result-image" id="result-image" alt="" hidden>
-          <div class="placeholder" id="placeholder"><span class="placeholder-mark" aria-hidden="true">✦</span><strong>イラスト準備中</strong><span>1080 × 1350px（4:5）</span></div>
+          <div class="placeholder" id="placeholder"><span class="placeholder-mark" aria-hidden="true">✦</span><strong>イラスト準備中</strong><span>1000 × 1000px（1:1）</span></div>
         </div>
         <div class="result-copy"><p class="label">あなたの運勢は</p><p class="fortune" id="fortune"></p><p class="message" id="message"></p></div>
       </article>
