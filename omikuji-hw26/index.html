@@ -7,6 +7,9 @@
   <meta name="theme-color" content="#201a2d">
   <title>HW26 おみくじ</title>
   <meta name="description" content="イベント限定おみくじ">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
   <style>
     :root { color-scheme: dark; --ink: #fff8e8; --muted: #c9bfd4; --gold: #ffd77a; --panel: rgba(35, 27, 49, 0.9); }
     * { box-sizing: border-box; }
@@ -32,7 +35,7 @@
     .placeholder strong { color: var(--ink); font-size: 1.05rem; }
     .result-copy { padding: 20px 14px 18px; }
     .label { margin: 0; color: var(--muted); font-size: .78rem; letter-spacing: .16em; }
-    .fortune { margin: 7px 0 12px; color: var(--accent,var(--gold)); font-family: "Hiragino Maru Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif; font-size: clamp(3rem,18vw,5.8rem); font-weight: 900; line-height: 1.05; letter-spacing: .08em; text-indent: .08em; -webkit-text-stroke: 5px #fff8e8; paint-order: stroke fill; text-shadow: 0 5px 0 rgba(31,22,42,.52), 0 12px 28px color-mix(in srgb,var(--accent,var(--gold)) 45%,transparent); transform: rotate(-2deg); }
+    .fortune { margin: 7px 0 12px; color: var(--accent,var(--gold)); font-family: "Hachi Maru Pop","Hiragino Maru Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif; font-size: clamp(3rem,18vw,5.8rem); font-weight: 400; line-height: 1.05; letter-spacing: .08em; text-indent: .08em; -webkit-text-stroke: 5px #fff8e8; paint-order: stroke fill; text-shadow: 0 5px 0 rgba(31,22,42,.52), 0 12px 28px color-mix(in srgb,var(--accent,var(--gold)) 45%,transparent); transform: rotate(-2deg); }
     .message { max-width: 30rem; margin: 0 auto; font-size: .96rem; line-height: 1.85; }
     .note { margin: 15px 0 0; color: var(--muted); font-size: .72rem; line-height: 1.6; }
     .loading { min-height: 68svh; display: grid; place-content: center; gap: 18px; }
