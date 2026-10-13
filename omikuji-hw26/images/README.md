@@ -2,7 +2,7 @@
 
 1000×1000px（1:1）のWebP画像を、次の名前でこのフォルダへ置きます。
 
-- `daikichi.webp`
+- `daikichi.png`
 - `kichi.webp`
 - `chukichi.webp`
 - `shokichi.webp`
