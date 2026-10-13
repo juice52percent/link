@@ -5,7 +5,7 @@
 - `daikichi.png`
 - `kichi.webp`
 - `chukichi.webp`
-- `shokichi.webp`
+- `shokichi.png`
 - `suekichi.png`
 - `kyo.webp`
 
