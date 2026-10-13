@@ -6,7 +6,7 @@
 - `kichi.webp`
 - `chukichi.webp`
 - `shokichi.webp`
-- `suekichi.webp`
+- `suekichi.png`
 - `kyo.webp`
 
 画像がない間は、ページに「イラスト準備中」の仮表示が出ます。
